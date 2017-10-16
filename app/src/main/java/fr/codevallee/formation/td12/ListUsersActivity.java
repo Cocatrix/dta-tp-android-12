@@ -17,6 +17,8 @@ public class ListUsersActivity extends AppCompatActivity {
     private UserDataSource userDataSource = new UserDataSource(this);
     private UserDAO userDAO = userDataSource.newUserDAO();
 
+    // TODO - Correct bug with ages, they are not added/modified
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class ListUsersActivity extends AppCompatActivity {
         Intent intentAddOrDelete = getIntent();
         Boolean addIntent = intentAddOrDelete.getBooleanExtra("add", false);
         Boolean deleteIntent = intentAddOrDelete.getBooleanExtra("delete", false);
+        Boolean modifyIntent = intentAddOrDelete.getBooleanExtra("modify", false);
 
         if(addIntent) {
             Log.d("ACTION","ADDING SOMEONE");
@@ -37,6 +40,15 @@ public class ListUsersActivity extends AppCompatActivity {
             Log.d("ACTION","DELETING SOMEONE");
             Integer idUserToDelete = intentAddOrDelete.getIntExtra("id", -1);
             this.userDAO.delete(new User(idUserToDelete, null, null, null, null));
+        }
+        if(modifyIntent) {
+            Log.d("ACTION","MODIFYING SOMEONE");
+            Integer id = intentAddOrDelete.getIntExtra("id",-1);
+            String familyName = intentAddOrDelete.getStringExtra("family");
+            String firstName = intentAddOrDelete.getStringExtra("first");
+            Integer age = intentAddOrDelete.getIntExtra("age",0);
+            String job = intentAddOrDelete.getStringExtra("job");
+            this.userDAO.update(new User(id, familyName, firstName, age, job));
         }
         this.printListUsers();
     }

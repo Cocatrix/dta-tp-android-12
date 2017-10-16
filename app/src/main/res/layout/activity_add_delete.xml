@@ -68,4 +68,14 @@
         android:onClick="clickOnDelete"
         android:text="Delete"
         android:visibility="visible" />
+
+    <Button
+        android:id="@+id/modify_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/delete_button"
+        android:layout_alignStart="@+id/delete_button"
+        android:layout_below="@+id/delete_button"
+        android:onClick="clickOnModify"
+        android:text="Modify" />
 </RelativeLayout>

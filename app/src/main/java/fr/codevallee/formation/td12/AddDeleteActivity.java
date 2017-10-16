@@ -59,8 +59,8 @@ public class AddDeleteActivity extends AppCompatActivity {
         intent.putExtra("add",true);
         intent.putExtra("family",family_name_text.getText().toString());
         intent.putExtra("first",first_name_text.getText().toString());
-        intent.putExtra("age",age_text.getText().toString());
-        intent.putExtra("job",Integer.getInteger(job_text.getText().toString()));
+        intent.putExtra("age",Integer.getInteger(age_text.getText().toString()));
+        intent.putExtra("job",job_text.getText().toString());
         Log.d("FAMILY",family_name_text.getText().toString());
         startActivity(intent);
     }
@@ -72,6 +72,27 @@ public class AddDeleteActivity extends AppCompatActivity {
         Intent intentToSend = new Intent(AddDeleteActivity.this,ListUsersActivity.class);
         intentToSend.putExtra("delete",true);
         intentToSend.putExtra("id", idUserToDelete);
+        startActivity(intentToSend);
+    }
+
+    protected void clickOnModify(View view) {
+        Log.d("ACTION","CLICKED ON MODIFY (FOR ENTRY)");
+        EditText family_name_text = (EditText) findViewById(R.id.family_name_text);
+        EditText first_name_text = (EditText) findViewById(R.id.first_name_text);
+        EditText age_text = (EditText) findViewById(R.id.age_text);
+        EditText job_text = (EditText) findViewById(R.id.job_text);
+
+        Intent intentReceived = getIntent();
+        Integer idUserToModify = intentReceived.getIntExtra("id", -1);
+
+        Intent intentToSend = new Intent(AddDeleteActivity.this,ListUsersActivity.class);
+        intentToSend.putExtra("modify",true);
+        intentToSend.putExtra("id", idUserToModify);
+        intentToSend.putExtra("family",family_name_text.getText().toString());
+        intentToSend.putExtra("first",first_name_text.getText().toString());
+        intentToSend.putExtra("age",Integer.getInteger(age_text.getText().toString()));
+        intentToSend.putExtra("job",job_text.getText().toString());
+        Log.d("FAMILY",family_name_text.getText().toString());
         startActivity(intentToSend);
     }
 }

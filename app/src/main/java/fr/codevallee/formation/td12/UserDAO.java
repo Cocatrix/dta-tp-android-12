@@ -58,6 +58,14 @@ class UserDAO {
         userDataSource.getDB().delete(TABLE_NAME,clause,clauseArgs);
     }
 
+    public synchronized void deleteAll() {
+        // Adding clause "where id = []"
+        String clause = COL_ID + CLAUSE;
+        String[] clauseArgs = new String[] {"*"};
+        // Processing delete request
+        userDataSource.getDB().delete(TABLE_NAME,clause,clauseArgs);
+    }
+
     public synchronized User read(User user) {
         String allColumns[] = new String[]{COL_ID,COL_FAMILY_NAME,COL_FIRST_NAME,COL_AGE,COL_JOB};
         // Adding clause "where id = []"

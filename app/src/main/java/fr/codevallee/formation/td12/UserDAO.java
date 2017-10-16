@@ -2,16 +2,21 @@ package fr.codevallee.formation.td12;
 
 
 import android.content.ContentValues;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class UserDAO {
-    private static final String TABLE_NAME = "User";
-    private static final String COL_ID = "id";
-    private static final String COL_FAMILY_NAME = "family_name";
-    private static final String COL_FIRST_NAME = "first_name";
-    private static final String COL_AGE = "age";
-    private static final String COL_JOB = "job";
+    private static final String TABLE_NAME = /*/Resources.getSystem().getString(R.string.user_table_name); /*/ "User";/**/
+    private static final String COL_ID = /*/Resources.getSystem().getString(R.string.user_col_id); /*/ "id";/**/
+    private static final String COL_FAMILY_NAME = /*/Resources.getSystem().getString(R.string.user_col_family_name); /*/ "family_name";/**/
+    private static final String COL_FIRST_NAME = /*/Resources.getSystem().getString(R.string.user_col_first_name); /*/ "first_name";/**/
+    private static final String COL_AGE = /*/Resources.getSystem().getString(R.string.user_col_age); /*/ "age";/**/
+    private static final String COL_JOB = /*/Resources.getSystem().getString(R.string.user_col_job); /*/ "job";/**/
+    private static final String CLAUSE = /*/Resources.getSystem().getString(R.string.clause); /*/ " = ?";/**/
     private final UserDataSource userDataSource;
 
     public UserDAO(UserDataSource userDataSource) {
@@ -37,7 +42,7 @@ class UserDAO {
         values.put(COL_AGE, user.getAge());
         values.put(COL_JOB, user.getJob());
         // Adding clause "where id = []"
-        String clause = COL_ID + " = ?";
+        String clause = COL_ID + CLAUSE;
         String[] clauseArgs = new String[] {user.getId().toString()};
         // Processing update request
         userDataSource.getDB().update(TABLE_NAME,values,clause,clauseArgs);
@@ -47,7 +52,7 @@ class UserDAO {
 
     public synchronized void delete(User user) {
         // Adding clause "where id = []"
-        String clause = COL_ID + " = ?";
+        String clause = COL_ID + CLAUSE;
         String[] clauseArgs = new String[] {user.getId().toString()};
         // Processing delete request
         userDataSource.getDB().delete(TABLE_NAME,clause,clauseArgs);
@@ -56,7 +61,7 @@ class UserDAO {
     public synchronized User read(User user) {
         String allColumns[] = new String[]{COL_ID,COL_FAMILY_NAME,COL_FIRST_NAME,COL_AGE,COL_JOB};
         // Adding clause "where id = []"
-        String clause = COL_ID + " = ?";
+        String clause = COL_ID + CLAUSE;
         String[] clauseArgs = new String[] {user.getId().toString()};
         // Processing select query
         Cursor cursor = userDataSource.getDB().query(TABLE_NAME,allColumns,clause,clauseArgs,null,null,null);
@@ -70,5 +75,22 @@ class UserDAO {
         cursor.close();
 
         return user;
+    }
+
+    public synchronized List<User> readAll() {
+        String allColumns[] = new String[]{COL_ID,COL_FAMILY_NAME,COL_FIRST_NAME,COL_AGE,COL_JOB};
+        // Processing select query
+        Cursor cursor = userDataSource.getDB().query(TABLE_NAME,allColumns,null,null,null,null,null);
+
+        List<User> users = new ArrayList<User>();
+        // Iterate in the list to read all users
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            users.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return users;
     }
 }

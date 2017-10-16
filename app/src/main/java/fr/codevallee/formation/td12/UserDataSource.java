@@ -20,11 +20,11 @@ public class UserDataSource {
         return db;
     }
 
-    private void open() throws SQLException {
+    public void open() throws SQLException {
         db = helper.getWritableDatabase();
     }
 
-    private void close() {
+    public void close() {
         helper.close();
     }
 

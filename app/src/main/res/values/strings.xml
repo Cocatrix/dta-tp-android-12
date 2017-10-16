@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">TD12</string>
+    <string name="app_name">Utilisateurs</string>
+    <string name="clause"> = ?</string>
+
+    <string name="user_table_name">User</string>
+    <string name="user_col_id">id</string>
+    <string name="user_col_family_name">family_name</string>
+    <string name="user_col_first_name">first_name</string>
+    <string name="user_col_age">age</string>
+    <string name="user_col_job">job</string>
+
+    <string name="create_table_user_query">
+        CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT, family_name VARCHAR(30) NOT NULL, first_name VARCHAR(15) NOT NULL, age UNSIGNED INTEGER NOT NULL, job VARCHAR(60));
+    </string>
+    <string name="drop_table_user_query">
+        DROP TABLE IF EXISTS User;
+    </string>
+
+    <string-array name="tab_users">
+        <item>Thomas</item>
+        <item>Arnaud</item>
+        <item>Ben</item>
+        <item>Maxime</item>
+    </string-array>
 </resources>

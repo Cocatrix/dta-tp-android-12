@@ -8,6 +8,14 @@ class User {
     private Integer age;
     private String job;
 
+    public User(Integer id, String familyName, String firstName, Integer age, String job) {
+        this.id = id;
+        this.familyName = familyName;
+        this.firstName = firstName;
+        this.age = age;
+        this.job = job;
+    }
+
     public Integer getId() {
         return id;
     }

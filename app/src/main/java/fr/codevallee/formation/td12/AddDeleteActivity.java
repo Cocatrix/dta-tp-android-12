@@ -16,13 +16,29 @@ public class AddDeleteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_delete);
 
         Intent intentDelete = getIntent();
-        Integer restart = intentDelete.getIntExtra("id", -1);
-        if (restart!=-1) {
+        Integer printUser = intentDelete.getIntExtra("id", -1);
+        if (printUser!=-1) {
             Log.d("ACTION", "Print clicked user, and delete button");
             TextView add_button = (TextView) findViewById(R.id.add_button);
             TextView delete_button = (TextView) findViewById(R.id.add_button);
             add_button.setVisibility(View.GONE);
             delete_button.setVisibility(View.VISIBLE);
+
+            EditText family_name_text = (EditText) findViewById(R.id.family_name_text);
+            EditText first_name_text = (EditText) findViewById(R.id.first_name_text);
+            EditText age_text = (EditText) findViewById(R.id.age_text);
+            EditText job_text = (EditText) findViewById(R.id.job_text);
+
+            String familyName = intentDelete.getStringExtra("family");
+            String firstName = intentDelete.getStringExtra("first");
+            Integer age = intentDelete.getIntExtra("age",0);
+            String job = intentDelete.getStringExtra("job");
+
+            family_name_text.setText(familyName);
+            first_name_text.setText(firstName);
+            age_text.setText(age.toString());
+            job_text.setText(job);
+
         } else {
             Log.d("ACTION", "Interface to add a user");
             TextView add_button = (TextView) findViewById(R.id.add_button);
@@ -48,6 +64,10 @@ public class AddDeleteActivity extends AppCompatActivity {
     }
 
     protected void clickOnDelete() {
-
+        Intent intentReceived = getIntent();
+        Integer idUserToDelete = intentReceived.getIntExtra("id", -1);
+        Intent intentToSend = new Intent(AddDeleteActivity.this,ListUsersActivity.class);
+        intentToSend.putExtra("delete",true);
+        intentToSend.putExtra("id", idUserToDelete);
     }
 }

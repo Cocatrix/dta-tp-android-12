@@ -23,18 +23,20 @@ public class ListUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_users);
         Intent intentAddOrDelete = getIntent();
         Boolean addIntent = intentAddOrDelete.getBooleanExtra("add", false);
+        Boolean deleteIntent = intentAddOrDelete.getBooleanExtra("delete", false);
+
         if(addIntent) {
             String familyName = intentAddOrDelete.getStringExtra("family");
             String firstName = intentAddOrDelete.getStringExtra("first");
             Integer age = intentAddOrDelete.getIntExtra("age",0);
             String job = intentAddOrDelete.getStringExtra("job");
-            this.addEntryUser(familyName,firstName,age,job);
+            this.userDAO.create(new User((Integer) null, familyName, firstName, age, job));
+        }
+        if(deleteIntent) {
+            Integer idUserToDelete = intentAddOrDelete.getIntExtra("id", -1);
+            this.userDAO.delete(new User(idUserToDelete, null, null, null, null));
         }
         this.printListUsers();
-    }
-
-    private void addEntryUser(String familyName, String firstName, Integer age, String job) {
-        this.userDAO.create(new User((Integer) null, familyName, firstName, age, job));
     }
 
     protected void printListUsers() {
@@ -56,6 +58,10 @@ public class ListUsersActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(ListUsersActivity.this,AddDeleteActivity.class);
                 intent.putExtra("id",item.getId());
+                intent.putExtra("family", item.getFamilyName());
+                intent.putExtra("first",item.getFirstName());
+                intent.putExtra("age",item.getAge());
+                intent.putExtra("job",item.getJob());
                 startActivity(intent);
             }
         });

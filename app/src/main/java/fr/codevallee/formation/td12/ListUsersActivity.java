@@ -13,23 +13,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListUsersActivity extends AppCompatActivity {
+    private UserDataSource userDataSource = new UserDataSource(this);
+    private UserDAO userDAO = userDataSource.newUserDAO();
     private final String[] users = {"A","B","C"};//getResources().getStringArray(R.array.tab_users);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_users);
+        Intent intentAddOrDelete = getIntent();
+        Boolean addIntent = intentAddOrDelete.getBooleanExtra("add", false);
+        if(addIntent) {
+            String familyName = intentAddOrDelete.getStringExtra("family");
+            String firstName = intentAddOrDelete.getStringExtra("first");
+            Integer age = intentAddOrDelete.getIntExtra("age",0);
+            String job = intentAddOrDelete.getStringExtra("job");
+            this.addEntryUser(familyName,firstName,age,job);
+        }
         this.printListUsers();
     }
 
+    private void addEntryUser(String familyName, String firstName, Integer age, String job) {
+        this.userDAO.create(new User((Integer) null, familyName, firstName, age, job));
+    }
+
     protected void printListUsers() {
-        UserDataSource userDataSource = new UserDataSource(this);
-        UserDAO userDAO = userDataSource.newUserDAO();
-        userDAO.deleteAll();
+        this.userDAO.deleteAll();
         for(String familyName : this.users) {
-            userDAO.create(new User(-1, familyName, "Jean", 21, null));
+            this.userDAO.create(new User(-1, familyName, "Jean", 21, null));
         }
-        List<User> newUsers = userDAO.readAll();
+        List<User> newUsers = this.userDAO.readAll();
 
         ListView listUsers = (ListView) findViewById(R.id.list_users);
         final ArrayAdapter<User> adapter = new ArrayAdapter<User>(ListUsersActivity.this,
@@ -46,5 +59,11 @@ public class ListUsersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    protected void buttonAddUser() {
+        Intent intent = new Intent(ListUsersActivity.this,AddDeleteActivity.class);
+        intent.putExtra("id",-1);
+        startActivity(intent);
     }
 }

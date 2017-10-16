@@ -7,7 +7,7 @@
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/family_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,41 +18,53 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/first_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/editText"
+        android:layout_alignStart="@+id/family_name_text"
+        android:layout_below="@+id/family_name_text"
         android:ems="10"
         android:hint="First name"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/age_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_below="@+id/editText2"
+        android:layout_alignStart="@+id/first_name_text"
+        android:layout_below="@+id/first_name_text"
         android:ems="10"
         android:hint="Age"
         android:inputType="numberSigned" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/job_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText3"
-        android:layout_below="@+id/editText3"
+        android:layout_alignStart="@+id/age_text"
+        android:layout_below="@+id/age_text"
         android:ems="10"
         android:hint="Job"
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText4"
-        android:layout_alignStart="@+id/editText4"
-        android:layout_below="@+id/editText4"
+        android:layout_alignEnd="@+id/job_text"
+        android:layout_alignStart="@+id/job_text"
+        android:layout_below="@+id/job_text"
+        android:onClick="clickOnAdd"
         android:text="Add" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/add_button"
+        android:layout_alignStart="@+id/add_button"
+        android:layout_below="@+id/add_button"
+        android:onClick="clickOnDelete"
+        android:text="Delete"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -24,17 +24,13 @@ class User {
         this.id = id;
     }
 
-    public String getFamilyName() {
-        return familyName;
-    }
+    public String getFamilyName() { return familyName; }
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -54,5 +50,9 @@ class User {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    public String toString() {
+        return this.familyName + " " + this.firstName;
     }
 }

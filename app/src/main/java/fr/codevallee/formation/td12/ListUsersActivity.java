@@ -38,7 +38,7 @@ public class ListUsersActivity extends AppCompatActivity {
     }
 
     protected void printListUsers() {
-        this.userDAO.deleteAll();
+        // Does not work anyway : this.userDAO.deleteAll();
         for(String familyName : this.users) {
             this.userDAO.create(new User(-1, familyName, "Jean", 21, null));
         }

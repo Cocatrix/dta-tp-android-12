@@ -21,8 +21,8 @@ public class AddDeleteActivity extends AppCompatActivity {
             Log.d("ACTION", "Print clicked user, and delete button");
             TextView add_button = (TextView) findViewById(R.id.add_button);
             TextView delete_button = (TextView) findViewById(R.id.add_button);
-            add_button.setVisibility(View.GONE);
-            delete_button.setVisibility(View.VISIBLE);
+            // add_button.setVisibility(View.GONE);
+            // delete_button.setVisibility(View.VISIBLE);
 
             EditText family_name_text = (EditText) findViewById(R.id.family_name_text);
             EditText first_name_text = (EditText) findViewById(R.id.first_name_text);
@@ -43,12 +43,13 @@ public class AddDeleteActivity extends AppCompatActivity {
             Log.d("ACTION", "Interface to add a user");
             TextView add_button = (TextView) findViewById(R.id.add_button);
             TextView delete_button = (TextView) findViewById(R.id.add_button);
-            add_button.setVisibility(View.VISIBLE);
-            delete_button.setVisibility(View.GONE);
+            // add_button.setVisibility(View.VISIBLE);
+            // delete_button.setVisibility(View.GONE);
         }
     }
 
-    protected void clickOnAdd() {
+    protected void clickOnAdd(View view) {
+        Log.d("ACTION","CLICKED ON ADD (FOR ENTRY)");
         EditText family_name_text = (EditText) findViewById(R.id.family_name_text);
         EditText first_name_text = (EditText) findViewById(R.id.first_name_text);
         EditText age_text = (EditText) findViewById(R.id.age_text);
@@ -56,18 +57,21 @@ public class AddDeleteActivity extends AppCompatActivity {
 
         Intent intent = new Intent(AddDeleteActivity.this,ListUsersActivity.class);
         intent.putExtra("add",true);
-        intent.putExtra("family",family_name_text.getText());
-        intent.putExtra("first",first_name_text.getText());
-        intent.putExtra("age",age_text.getText());
-        intent.putExtra("job",job_text.getText());
+        intent.putExtra("family",family_name_text.getText().toString());
+        intent.putExtra("first",first_name_text.getText().toString());
+        intent.putExtra("age",age_text.getText().toString());
+        intent.putExtra("job",Integer.getInteger(job_text.getText().toString()));
+        Log.d("FAMILY",family_name_text.getText().toString());
         startActivity(intent);
     }
 
-    protected void clickOnDelete() {
+    protected void clickOnDelete(View view) {
+        Log.d("ACTION","CLICKED ON DELETE (FOR PRINTED ENTRY)");
         Intent intentReceived = getIntent();
         Integer idUserToDelete = intentReceived.getIntExtra("id", -1);
         Intent intentToSend = new Intent(AddDeleteActivity.this,ListUsersActivity.class);
         intentToSend.putExtra("delete",true);
         intentToSend.putExtra("id", idUserToDelete);
+        startActivity(intentToSend);
     }
 }

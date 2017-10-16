@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +16,6 @@ import java.util.List;
 public class ListUsersActivity extends AppCompatActivity {
     private UserDataSource userDataSource = new UserDataSource(this);
     private UserDAO userDAO = userDataSource.newUserDAO();
-    private final String[] users = {"A","B","C"};//getResources().getStringArray(R.array.tab_users);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class ListUsersActivity extends AppCompatActivity {
         Boolean deleteIntent = intentAddOrDelete.getBooleanExtra("delete", false);
 
         if(addIntent) {
+            Log.d("ACTION","ADDING SOMEONE");
             String familyName = intentAddOrDelete.getStringExtra("family");
             String firstName = intentAddOrDelete.getStringExtra("first");
             Integer age = intentAddOrDelete.getIntExtra("age",0);
@@ -33,6 +34,7 @@ public class ListUsersActivity extends AppCompatActivity {
             this.userDAO.create(new User((Integer) null, familyName, firstName, age, job));
         }
         if(deleteIntent) {
+            Log.d("ACTION","DELETING SOMEONE");
             Integer idUserToDelete = intentAddOrDelete.getIntExtra("id", -1);
             this.userDAO.delete(new User(idUserToDelete, null, null, null, null));
         }
@@ -40,10 +42,6 @@ public class ListUsersActivity extends AppCompatActivity {
     }
 
     protected void printListUsers() {
-        // Does not work anyway : this.userDAO.deleteAll();
-        for(String familyName : this.users) {
-            this.userDAO.create(new User(-1, familyName, "Jean", 21, null));
-        }
         List<User> newUsers = this.userDAO.readAll();
 
         ListView listUsers = (ListView) findViewById(R.id.list_users);
@@ -55,7 +53,7 @@ public class ListUsersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User item = adapter.getItem(position);
-
+                Log.d("ACTION","CLICKED ON SOMEONE : " + item.toString());
                 Intent intent = new Intent(ListUsersActivity.this,AddDeleteActivity.class);
                 intent.putExtra("id",item.getId());
                 intent.putExtra("family", item.getFamilyName());
@@ -67,7 +65,8 @@ public class ListUsersActivity extends AppCompatActivity {
         });
     }
 
-    protected void buttonAddUser() {
+    protected void buttonAddUser(View view) {
+        Log.d("ACTION","CLICKED ON ADD");
         Intent intent = new Intent(ListUsersActivity.this,AddDeleteActivity.class);
         intent.putExtra("id",-1);
         startActivity(intent);

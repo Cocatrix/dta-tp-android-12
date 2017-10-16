@@ -2,6 +2,7 @@ package fr.codevallee.formation.td12;
 
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class UserDataSource {
@@ -19,7 +20,7 @@ public class UserDataSource {
         return db;
     }
 
-    private void open() {
+    private void open() throws SQLException {
         db = helper.getWritableDatabase();
     }
 

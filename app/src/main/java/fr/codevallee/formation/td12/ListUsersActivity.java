@@ -13,6 +13,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class lists the database users. Only this activity works with the database.
+ * That is why the CRUD actions are done here.
+ * A ListView is used to display the users, and clicking on one of them shows details.
+ * Same for add button, goes to AddDeleteActivity as well.
+ */
 public class ListUsersActivity extends AppCompatActivity {
     private UserDataSource userDataSource = new UserDataSource(this);
     private UserDAO userDAO = userDataSource.newUserDAO();
@@ -22,8 +28,8 @@ public class ListUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_users);
         // We use the intent to know whether we come from the AddDeleteActivity
-        // (and what action should we do)
         Intent intentAddOrDelete = getIntent();
+        // We used booleans to specify the action to be done on database
         Boolean addIntent = intentAddOrDelete.getBooleanExtra("add", false);
         Boolean deleteIntent = intentAddOrDelete.getBooleanExtra("delete", false);
         Boolean modifyIntent = intentAddOrDelete.getBooleanExtra("modify", false);

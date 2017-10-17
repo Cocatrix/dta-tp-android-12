@@ -16,7 +16,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         this(context, DB_NAME, null, DB_VERSION);
     }
 
-    public UserDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private UserDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         /**
          * Matches abstract parent constructor.
          */

@@ -19,11 +19,11 @@ public class UserDataSource {
         return db;
     }
 
-    public void open() {
+    private void open() {
         db = helper.getWritableDatabase();
     }
 
-    public void close() {
+    private void close() {
         helper.close();
     }
 

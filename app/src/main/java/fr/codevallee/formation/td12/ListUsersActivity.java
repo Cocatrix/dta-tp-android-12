@@ -59,7 +59,7 @@ public class ListUsersActivity extends AppCompatActivity {
         this.printListUsers();
     }
 
-    protected void printListUsers() {
+    private void printListUsers() {
         List<User> newUsers = this.userDAO.readAll();
 
         ListView listUsers = (ListView) findViewById(R.id.list_users);

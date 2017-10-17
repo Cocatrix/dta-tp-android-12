@@ -33,7 +33,7 @@ public class ListUsersActivity extends AppCompatActivity {
         Boolean addIntent = intentAddOrDelete.getBooleanExtra("add", false);
         Boolean deleteIntent = intentAddOrDelete.getBooleanExtra("delete", false);
         Boolean modifyIntent = intentAddOrDelete.getBooleanExtra("modify", false);
-
+        // Depending on action, getting parameters and calling userDAO corresponding method
         if(addIntent) {
             Log.d("ACTION","ADDING SOMEONE");
             String familyName = intentAddOrDelete.getStringExtra("family");
@@ -72,6 +72,7 @@ public class ListUsersActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User item = adapter.getItem(position);
                 Log.d("ACTION","CLICKED ON SOMEONE : " + item.toString());
+                // We cannot send a User in an intent, so we send each attribute in extra
                 Intent intent = new Intent(ListUsersActivity.this,AddDeleteActivity.class);
                 intent.putExtra("id",item.getId());
                 intent.putExtra("family", item.getFamilyName());

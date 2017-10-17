@@ -59,7 +59,7 @@ public class AddDeleteActivity extends AppCompatActivity {
         intent.putExtra("add",true);
         intent.putExtra("family",family_name_text.getText().toString());
         intent.putExtra("first",first_name_text.getText().toString());
-        intent.putExtra("age",Integer.getInteger(age_text.getText().toString()));
+        intent.putExtra("age",Integer.parseInt(age_text.getText().toString()));
         intent.putExtra("job",job_text.getText().toString());
         Log.d("FAMILY",family_name_text.getText().toString());
         startActivity(intent);
@@ -90,7 +90,7 @@ public class AddDeleteActivity extends AppCompatActivity {
         intentToSend.putExtra("id", idUserToModify);
         intentToSend.putExtra("family",family_name_text.getText().toString());
         intentToSend.putExtra("first",first_name_text.getText().toString());
-        intentToSend.putExtra("age",Integer.getInteger(age_text.getText().toString()));
+        intentToSend.putExtra("age",Integer.parseInt(age_text.getText().toString()));
         intentToSend.putExtra("job",job_text.getText().toString());
         Log.d("FAMILY",family_name_text.getText().toString());
         startActivity(intentToSend);

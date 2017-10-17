@@ -17,12 +17,12 @@ public class ListUsersActivity extends AppCompatActivity {
     private UserDataSource userDataSource = new UserDataSource(this);
     private UserDAO userDAO = userDataSource.newUserDAO();
 
-    // TODO - Correct bug with ages, they are not added/modified
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_users);
+        // We use the intent to know whether we come from the AddDeleteActivity
+        // (and what action should we do)
         Intent intentAddOrDelete = getIntent();
         Boolean addIntent = intentAddOrDelete.getBooleanExtra("add", false);
         Boolean deleteIntent = intentAddOrDelete.getBooleanExtra("delete", false);
